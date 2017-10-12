@@ -2,11 +2,14 @@ package pub.tanzby.lab2;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.annotation.IdRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,13 +38,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         init();  // 初始化控件选择
-
         evenBind(); // 事件绑定
-
     }
 
+    private void showInfo_Snackbar(View v,String  info)
+    {
+        Snackbar.make(v.getRootView(), info,Snackbar.LENGTH_SHORT)
+                .setAction("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {/*TO-DO*/}
+                })
+                .setDuration(5000)
+                .setActionTextColor(Color.WHITE)
+                .show();
+    }
+    /**** 监听输入框变化 ****/
+    private TextWatcher update()
+    {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                TIL_Id.setErrorEnabled(false);
+                TIL_Pw.setErrorEnabled(false);
+            }
+        };
+    }
+    /**** 绑定控件 ****/
     private void init()
     {
         signInBnt=(Button) findViewById(R.id.bnt_sign_in);
@@ -54,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         Gravatar=(ImageView) findViewById(R.id.gravatarIageView);
         isStudent=true;
     }
-
+    /**** 绑定控件事件 ****/
     private void evenBind()
     {
         Gravatar.setOnClickListener(new View.OnClickListener() {
@@ -87,23 +114,20 @@ public class MainActivity extends AppCompatActivity {
                 if (ID.isEmpty())
                 {
                     TIL_Id.setError("学号不能为空");
-//                    TIL_Id.setErrorEnabled(true);
                 }
                 else if (PW.isEmpty())
                 {
                     TIL_Pw.setError("密码不能为空");
-                    TIL_Id.setErrorEnabled(false);
-//                    TIL_Pw.setErrorEnabled(true);
                 }
-                else if ( Objects.equals(ID, "123456") && Objects.equals(PW, "6666")  )
+                else if ( Objects.equals(ID, "123456") && Objects.equals(PW, "6666") )
                 {
                     TIL_Pw.setErrorEnabled(false);
-                    Snackbar.make(v.getRootView(), "登陆成功",Snackbar.LENGTH_SHORT).show();
+                    showInfo_Snackbar(v,"登陆成功");
                 }
                 else
                 {
                     TIL_Pw.setErrorEnabled(false);
-                    Snackbar.make(v.getRootView(), "登陆失败",Snackbar.LENGTH_SHORT).show();
+                    showInfo_Snackbar(v,"账号或密码错误");
                 }
             }
         });
@@ -111,25 +135,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String showStr = (isStudent ? "学生" : "教职工")+"注册功能尚未启用";
-                if(isStudent)
-                {
-                    Snackbar.make(v.getRootView(), showStr,Snackbar.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),showStr,Toast.LENGTH_SHORT).show();
-                }
+                if(isStudent)  showInfo_Snackbar(v,showStr);
+                else Toast.makeText(getApplicationContext(),showStr,Toast.LENGTH_SHORT).show();
             }
         });
         IndentifySel.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 isStudent = checkedId == R.id.radioButton1;
-                String showStr = "您选择了"+ (isStudent ? "学生" : "教职工");
-                Snackbar.make(group.getRootView(), showStr,Snackbar.LENGTH_SHORT).show();
-
+                showInfo_Snackbar(group.getRootView(),
+                        "您选择了"+ (isStudent ? "学生" : "教职工") );
             }
         });
+        stuPw.addTextChangedListener(update());
+        stuId.addTextChangedListener(update());
     }
-
 }
