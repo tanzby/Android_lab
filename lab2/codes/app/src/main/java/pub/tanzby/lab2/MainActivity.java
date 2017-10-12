@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean isStudent;
     private ImageView Gravatar;
 
-    private String dialogSelectStr[] = new String[]{"拍照", "从相册中选选择"};
+    private String dialogSelectStr[] = new String[]{"拍摄", "从相册选择"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     TIL_Id.setErrorEnabled(false);
 //                    TIL_Pw.setErrorEnabled(true);
                 }
-                else if ( Objects.equals(ID, "123456") && Objects.equals(PW, "666")  )
+                else if ( Objects.equals(ID, "123456") && Objects.equals(PW, "6666")  )
                 {
                     TIL_Pw.setErrorEnabled(false);
                     Snackbar.make(v.getRootView(), "登陆成功",Snackbar.LENGTH_SHORT).show();
@@ -111,7 +111,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String showStr = (isStudent ? "学生" : "教职工")+"注册功能尚未启用";
-                Snackbar.make(v.getRootView(), showStr,Snackbar.LENGTH_SHORT).show();
+                if(isStudent)
+                {
+                    Snackbar.make(v.getRootView(), showStr,Snackbar.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),showStr,Toast.LENGTH_SHORT).show();
+                }
             }
         });
         IndentifySel.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
