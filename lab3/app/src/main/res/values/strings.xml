@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">lab3</string>
+
+
+    <string-array name="moreOptionItemName">
+        <item >一键下单</item>
+        <item >分享商品</item>
+        <item >不感兴趣</item>
+        <item >查看更多商品促销信息</item>
+    </string-array>
+
+    <string-array name="ProductOption">
+        <item>更多产品信息</item>
+    </string-array>
+
+</resources>
