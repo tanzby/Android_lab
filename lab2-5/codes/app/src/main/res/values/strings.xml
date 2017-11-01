@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">lab5</string>
+
+
+    <string-array name="ProductOption">
+        <item>更多产品信息</item>
+    </string-array>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+</resources>
