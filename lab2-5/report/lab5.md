@@ -26,7 +26,7 @@
 
 小部件的使用方法与通知的使用方法基本一致，与实验四重叠部分省略
 
-####注册Widget
+#### 注册Widget
 
 右键工程,  直接新建一个Widget，接着在*AndroidManifest.xml*的Widget配置中加入与通知相同的过滤器
 
@@ -53,7 +53,7 @@ IntentFilter intentFilter = new IntentFilter("DynamicFilter");
 registerReceiver(productRecommand_,intentFilter);
 registerReceiver(productWidget_   ,intentFilter);
 ```
-####设置事件
+#### 设置事件
 
 添加全局变量,  因为此程序的所有小部件都是一样的所以使用static，同时这样写还可以允许这些变量在`static void updateAppWidget()`中使用
 
@@ -145,7 +145,7 @@ static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
 
 
 
-##实验结果
+## 实验结果
 
 <div><table class="groupImg" ><tr><td >
 <img src="lab5/init.jpg"  >
@@ -170,7 +170,7 @@ static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
 </tr>
 </table><div>
 
-##​实验总结
+## 实验总结
 
 widget的使用与notification几乎一致——除了更新的方式有所不同
 
