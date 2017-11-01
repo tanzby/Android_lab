@@ -65,7 +65,7 @@ private static Product curProduct;
 private static RemoteViews remoteView;
 ```
 
-继承AppWidgetProvider，构建子类`NewAppWidget`, 重写方法onReceive，使得小部件可以接收与通知相同的数据更新广播。添加`super.onReceive(context,intent)`使得widget相应系统广播`"android.appwidget.action.APPWIDGET_UPDATE"`,  调用updateAppWidget初始化布局。
+继承AppWidgetProvider，构建子类`NewAppWidget`, 重写方法onReceive，使得小部件可以接收与通知相同的数据更新广播。添加`super.onReceive(context,intent)`使得widget响应系统广播`"android.appwidget.action.APPWIDGET_UPDATE"`,  调用updateAppWidget初始化布局。
 
 ```java
 @Override
