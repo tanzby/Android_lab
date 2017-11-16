@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
         mServerConnect=new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                Log.i("music_service", "connected");
                 mbinder=service;
                 try {
                     Parcel reply = Parcel.obtain();
@@ -155,10 +154,10 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        Intent intent = new Intent(this, MusicService.class);
-        startService(intent);
-        bindService(intent, mServerConnect, BIND_AUTO_CREATE);
-    }
+    Intent intent = new Intent(this, MusicService.class);
+    startService(intent);
+    bindService(intent, mServerConnect, BIND_AUTO_CREATE);
+}
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -217,7 +216,8 @@ public class MainActivity extends AppCompatActivity {
             case 0: //play
                 play_bnt.setText("PAUSE");
                 status_tv.setText("playing");
-                mObjAnim.resume();
+                if (mObjAnim.isStarted())  mObjAnim.resume();
+                else mObjAnim.start();
                 break;
             case 1: //pause
                 play_bnt.setText("PLAY");
@@ -228,13 +228,13 @@ public class MainActivity extends AppCompatActivity {
                 play_bnt.setText("PLAY");
                 status_tv.setText("stopped");
                 mObjAnim.pause();
+                mObjAnim.end();
                 break;
         }
     }
 
     @Override
     public void onDestroy() {
-
         try {
             mbinder.transact(2, null, null, 0);
         } catch (Exception e) {
@@ -242,9 +242,7 @@ public class MainActivity extends AppCompatActivity {
         }
         unbindService(mServerConnect);
         mServerConnect = null;
-
         super.onDestroy();
-
         this.finish();
     }
 }

@@ -20,7 +20,6 @@ public class MusicService extends Service {
         if (player==null) {
             player = new MediaPlayer();
         }
-
         try {
             String path = Environment.getExternalStorageDirectory() + "/melt.mp3";
             player.setDataSource(path);
@@ -53,6 +52,7 @@ public class MusicService extends Service {
                 case 1: // stop
                     try {
                         player.stop();
+                        player.prepare();
                         player.seekTo(0);
                     } catch (Exception e) {
                         e.printStackTrace();
