@@ -149,7 +149,7 @@ public static Retrofit createRetrofit()
 
 #### 定义订阅者
 
-在实验中有两种订阅者——订阅user信息、订阅user的Repos，但两者的写法基本一致，期中订阅user的Observer对象为
+在实验中有两种订阅者——订阅user信息、订阅user的Repos，但两者的写法基本一致，其中订阅user的Observer对象为
 
 ```java
 github_obs = new Observer<GitHub>() {
